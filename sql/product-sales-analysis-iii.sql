@@ -1,3 +1,4 @@
+-- Approach: Filtering from Minimum Value Subquery
 -- product is redundant
 select product_id, year as first_year, quantity, price
 from sales
