@@ -19,3 +19,18 @@ union
 select employee_id, department_id
 from exact_once
 
+-- Approach 2: Window Function (COUNT)
+select
+  employee_id,
+  department_id
+from
+  (
+    select
+      *,
+      COUNT(employee_id) OVER(PARTITION BY employee_id) AS EmployeeCount
+    from
+      employee
+  ) EmployeePartition
+where
+  EmployeeCount = 1
+  or primary_flag = 'Y';
