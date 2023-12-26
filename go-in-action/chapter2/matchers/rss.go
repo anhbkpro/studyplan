@@ -116,7 +116,7 @@ func (m rssMatcher) Search(feed *search.Feed, searchTerm string) ([]*search.Resu
 // retrieve performs a HTTP Get request for the rss feed and decodes the results.
 func (m rssMatcher) retrieve(feed *search.Feed) (*rssDocument, error) {
 	if feed.URI == "" {
-		return nil, errors.New("No rss feed uri provided")
+		return nil, errors.New("no rss feed uri provided")
 	}
 
 	// Retrieve the rss feed document from the web.
@@ -131,7 +131,7 @@ func (m rssMatcher) retrieve(feed *search.Feed) (*rssDocument, error) {
 	// Check the status code for a 200 so we know we have received a
 	// proper response.
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("HTTP Response Error %d\n", resp.StatusCode)
+		return nil, fmt.Errorf("HTTP Response Error %d", resp.StatusCode)
 	}
 
 	// Decode the rss feed document into our struct type.
