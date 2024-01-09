@@ -7,6 +7,7 @@ from
     using (customer_id)
     left join product p
     using (product_id)
+    where YEAR(order_date) = 2020
     group by customer_id, CONCAT(YEAR(order_date), MONTH(order_date))
     HAVING (SUM(p.price * o.quantity)) >= 100
 ) g
