@@ -1,4 +1,4 @@
-with company_avg_salary_by_months as (
+with company_salary_avg_by_month as (
     select DATE_FORMAT(pay_date, '%Y-%m') as pay_month,
         ROUND(AVG(amount), 2) as company_salary_avg
     from salary
@@ -9,7 +9,7 @@ joined as (
     select *
     from salary
     left join employee using (employee_id)
-    left join company_avg_salary_by_months on DATE_FORMAT(pay_date, '%Y-%m') = pay_month
+    left join company_salary_avg_by_month on DATE_FORMAT(pay_date, '%Y-%m') = pay_month
 )
 
 select pay_month, department_id,
@@ -19,4 +19,4 @@ select pay_month, department_id,
         ELSE 'lower'
     END as comparison
 from joined
-group by pay_month, department_id
+group by 1, 2
