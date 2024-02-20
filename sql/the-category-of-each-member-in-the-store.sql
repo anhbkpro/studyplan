@@ -22,3 +22,21 @@ select member_id, name,
     END as category
 from MemberTotalAmount
 order by 1
+
+-- Solution 2
+select
+  m.member_id,
+  m.name,
+  case
+    when v.member_id is null then 'Bronze'
+    when sum(case when p.charged_amount > 0 then 1 else 0 end) / count(*) >= 0.8 then 'Diamond'
+    when sum(case when p.charged_amount > 0 then 1 else 0 end) / count(*) >= 0.5 then 'Gold'
+    else 'Silver'
+  end as category
+from members m
+left join visits v
+on m.member_id = v.member_id
+left join purchases p
+on v.visit_id = p.visit_id
+group by 1, 2
+order by 1
