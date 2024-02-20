@@ -6,7 +6,7 @@ select item_category as CATEGORY,
     IFNULL(SUM(CASE WHEN dayofweek(order_date) = 6 THEN quantity END), 0) as FRIDAY,
     IFNULL(SUM(CASE WHEN dayofweek(order_date) = 7 THEN quantity END), 0) as SATURDAY,
     IFNULL(SUM(CASE WHEN dayofweek(order_date) = 1 THEN quantity END), 0) as SUNDAY
-from items i
-left join orders o on o.item_id = i.item_id
+from items
+left join orders using(item_id)
 group by item_category
 order by item_category
